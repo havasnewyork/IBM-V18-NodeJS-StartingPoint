@@ -1,0 +1,82 @@
+include mixins
+doctype html
+html(lang="en")
+  head
+    include modules/meta-data
+    block head
+  body#ibm-com.ibm-type.ibm-blockchain
+    #ibm-top.ibm-landing-page
+      #ibm-masthead(role="banner" aria-label="IBM")
+        #ibm-universal-nav
+          nav(role="navigation" aria-label="IBM")
+            #ibm-home
+              a(href="http://www.ibm.com/us/en/") IBM&reg;
+            ul(id="ibm-menu-links" role="toolbar" aria-label="Site map")
+              li
+                a(href="http://www.ibm.com/sitemap/us/en/") Site map
+              li(role="presentation" class="ibm-icononly ibm-masthead-item-search ibm-masthead-full-item ibm-masthead-mobile-item")
+                a(role="button" href="//www.ibm.com/Search/?lang=en&amp;amp;cc=us" tabindex="-1" class="ibm-masthead-search-link") Search
+            div(id="ibm-search-module" role="search" aria-labelledby="ibm-masthead")
+              form(id="ibm-search-form" action="//www.ibm.com/Search/" method="get")
+                p
+                  input(type="text" maxlength="100" value="" placeholder="Search" name="q" id="q" aria-label="Search")
+                  input(type="hidden" value="18" name="v")
+                  input(type="hidden" value="utf" name="en")
+                  input(type="hidden" value="en" name="lang")
+                  input(type="hidden" value="us" name="cc")
+                  span(class="ibm-search-scope")
+                    input(type="checkbox" name="sn" value="Cloud" checked id="scopeoption")
+                    label(for="scopeoption") Within Bluemix
+                  input(type="submit" id="ibm-search" class="ibm-btn-search" value="Submit")
+              form(class="ibm-hide" id="ecmCustomForm" action="https://www.ibm.com/marketplace/next/search/us/en-us/" method="get")
+                p
+                  input(type="text" name="terms")
+      #ibm-content-wrapper
+        header( role="banner" aria-label="ibm-pagetitle-h1")
+          .ibm-sitenav-menu-container
+            .ibm-sitenav-menu-name
+              a(href="/blockchain/index.html") IBM Blockchain
+            .ibm-sitenav-menu-list
+              ul(role="menubar")
+                for tab in nav.primary_tabs
+                  +tabV18(tab, (path.indexOf(tab.href) > -1))
+          - var parallax = (content.leadspace.parallax) ? "parallaxscroll" : ""
+          if(content.leadspace.leadspaceimg != undefined)
+            - var leadstyle = (content.leadspaceimg) ? "background-color:#20343e;  background-image: url(" + content.leadspaceimg + ")" : "background-color:#20343e; background-image: url(" + content.leadspace.leadspaceimg + ");background-position: center center;background-size: cover;";
+          else
+            - var leadstyle = content.leadspace.background
+          - var breadcrumbsStyle = (content.leadspace.breadcrumbsStyle) ? content.leadspace.breadcrumbsStyle : ""
+          - var customLeadspace = (content.leadspace.is_custom)
+          if(!content.leadspace.hidden)
+            #ibm-leadspace-head.ibm-padding-top-1(style=leadstyle class=content.section_color data-widget="#{parallax}")&attributes( (customLeadspace) ? {"class":"bluemix-custom-leadspace "} : {"class":"ibm-padding-bottom-r1"})
+              nav(role="navigation", aria-label="Breadcrumbs")
+                ul#ibm-navigation-trail.ibm-padding-bottom-0(style=" "+breadcrumbsStyle)
+                  li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+                    a(href="//www.ibm.com/", itemprop="url" style=" "+breadcrumbsStyle)
+                      span.ibm-textcolor-gray-30(itemprop="title" style=" "+breadcrumbsStyle) IBM
+                  li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+                    a(href="/blockchain/index.html", itemprop="url" style=" "+breadcrumbsStyle)
+                      span.ibm-textcolor-gray-30(itemprop="title" style=" "+breadcrumbsStyle) Blockchain
+                  if content.breadcrumbs
+                    each val, index in content.breadcrumbs
+                      li(itemscope, itemtype="http://data-vocabulary.org/Breadcrumb")
+                        a(href="#{val.url}", itemprop="url" style=" "+breadcrumbsStyle)
+                          if(val.url == 'javascript: void(0);')
+                            span.ibm-textcolor-gray-30(itemprop="title" style=" "+breadcrumbsStyle)=val.label
+                          else
+                              span.ibm-textcolor-gray-30(itemprop="title" style=" "+breadcrumbsStyle)=val.label
+              if (customLeadspace)
+                if (content.leadspace.is_custom)
+                  +#{content.leadspace.temp}(content.leadspace)
+              else
+                include modules/leadspace
+      main(role="main" aria-labelledby="ibm-pagetitle-h1")
+        #ibm-pcon
+          #ibm-content
+            #ibm-content-body
+              #ibm-content-main
+                block content
+      #ibm-footer-module
+      footer(role='contentinfo', aria-label='IBM')
+        #ibm-footer
+          block page-footer

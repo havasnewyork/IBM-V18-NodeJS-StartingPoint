@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,OAAQ,CACP,WAAW,CAAE,eAAe",
+"sources": ["../../scss/views/events.scss"],
+"names": [],
+"file": "events.css"
+}

@@ -1,0 +1,167 @@
+-var mo = (new Date()).getMonth()+1
+-if(mo < 10)
+  -var mo = "0"+mo
+
+-var date = (new Date()).getDate()
+-if(date < 10)
+  -var date = "0"+date
+
+="\n"
+<!-- ALL CHANGES to any portion of the <head> tag of this, or any page in the ibm.com/cloud-computing/bluemix/ domain, requires written approval of the site owner specified in the "pageinfo.ibm.owner" field -->
+="\n\n"
+
+<!-- START - v18 Bluemix Required Meta - No Edit -->
+meta(charset="UTF-8")
+
+if(content.pagetitle)
+  meta(name="robots", content="index,follow")
+  meta(name="dcterms.rights", content="© Copyright IBM Corporation 2016")
+  meta(name="dcterms.date", content="2016-02-11")
+  meta(name="geo.country", content="US")
+  meta(name="viewport", content="width=device-width, initial-scale=1")
+  meta(name="apple-mobile-web-app-capable", content="yes")
+  meta(name="google-site-verification", content="#{content.google_site_verification}")
+  link(rel="canonical", href="#{content.canonical}")
+  link(rel="icon", href="//www.ibm.com/favicon.ico")
+  link(rel="shortcut icon", href="//www.ibm.com/favicon.ico")
+  ="\n"
+  <!-- END - v18 Bluemix Required Meta - No Edit -->
+  ="\n\n"
+
+
+  if(content.language_redirect)
+    <!-- START - Global Language Redirect - Remove From All Translated Pages -->
+    script(src="#{content.language_redirect}")
+    ="\n"
+    <!-- END - Global Language Redirect - Remove From All Translated Pages -->
+  else
+    ="\n"
+    <!-- NO Global Language Redirect being used on this page -->
+
+  ="\n\n"
+
+  title #{content.pagetitle}
+  meta(name="description", content="#{content.meta_description}")
+  meta(name="keywords", content="#{content.meta_keywords}")
+
+  ="\n\n"
+  script.
+      digitalData = {
+          page: {
+              category: {
+                  primaryCategory: "#{content.digitalData.primaryCategory}"
+              },
+              pageInfo: {
+                  pageID: "#{content.digitalData.pageID}",
+                  effectiveDate: "!{(new Date()).getFullYear()}-#{mo}-#{date}",
+                  publishDate: "!{(new Date()).getFullYear()}-#{mo}-#{date}",
+                  expiryDate: "!{(new Date()).getFullYear()+1}-#{mo}-#{date}",
+                  language: "en",
+                  publisher: "IBM Corporation - Bluemix",
+                  version: "v18",
+                  ibm: {
+                      siteID: "#{content.digitalData.siteID}",
+                      owner: "Nathan C Bybee/Austin/IBM",
+                      contentDelivery: "Havas/Express.js",
+                      country: "ZZ",
+                      industry: "ZZ",
+                      subject: "",
+                      type: ""
+                  }
+              }
+          }
+      };
+
+= "\n\n"
+<!-- START - Bluemix Custom Naming and Analytics -->
+= "\n"
+<!-- Segment Naming -->
+meta(name="segment" property="#{content.segment_naming.property}", value="#{content.segment_naming.value}")
+script.
+  /* Control which analytics libraries are loaded */
+  window._analytics =  !{JSON.stringify(content.analytics)}
+
+script(src='//console.ng.bluemix.net/analytics/build/bluemix-analytics.js')
+= "\n"
+<!-- END - Bluemix Custom Naming and Analytics -->
+
+
+
+
+
+//- IBM common
+- var v18src = "//1.www.s81c.com/common/"
+
+
+="\n\n"
+<!-- v18 Required Sitewide CSS -->
+link(rel='stylesheet', href='#{v18src}v18/css/www.css')
+link(rel='stylesheet', href='/stylesheets/style.css')
+="\n"
+<!-- END v18 Required Sitewide CSS -->
+
+="\n\n"
+<!-- v18 Required Sitewide Javascript -->
+//script(src='/cloud-computing/bluemix/javascripts/jquery-2.1.3.min.js')
+//script(src='/cloud-computing/bluemix/javascripts/jquery.cookie.js')
+script(src="#{v18src}stats/ida_stats.js")
+script(src='#{v18src}v18/js/www.js')
+="\n"
+<!-- END v18 Required Sitewide Javascript -->
+
+
+
+
+//- Bluemix global custom stylesheets
+
+
+//- page only stylesheets
+= "\n"
+
+if(content.stylesheet && content.stylesheet != "")
+  <!-- Current Page Required CSS -->
+  for key in content.stylesheet
+    link(rel='stylesheet', href='#{key}')
+  = "\n"
+  <!-- END Current Page Required CSS -->
+
+
+
+//- page only javascript
+
+if(content.javascript && content.javascript != "")
+  = "\n\n"
+  <!-- Current Page Required Javascript -->
+  for key in content.javascript
+    script(src='#{key}')
+  = "\n"
+  <!-- END Current Page Required Javascript -->
+  = "\n\n"
+
+script.
+    var wow = new WOW({ boxClass: 'wow', animateClass: 'animated', offset: 0, mobile: false, live: true  }).init();
+
+      IBMCore.common.util.config.set({
+        sbs: { enabled: false },
+        masthead: {
+        type: "",
+          //  type: "alternate",
+          search:{
+            enabled: true
+          }
+        },
+
+        footermenu:{ enabled:true },
+        localeselector:{ enabled: true },
+        footer: {
+          enabled: true,
+          //  type: "alternate",
+          socialLinks: {
+            enabled: true
+          },
+        },
+        scrolltracker:{ enabled: true }
+      });
+
+
+= "\n\n"

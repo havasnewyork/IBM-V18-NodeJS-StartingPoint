@@ -1,0 +1,57 @@
+include mixins
+
+extends layout
+
+block meta
+
+block head
+
+  //- script.
+  //-   var template = jQuery('#template').html();
+  //-   var feedURL = "https://developer.ibm.com/bluemix/tag/homepage/feed/";
+  //-   var content = "";
+  //-   var string = "";
+
+  //-   var fetchFeed = function(){
+  //-     var dfd = new jQuery.Deferred();
+
+  //-     jQuery.ajax({
+  //-       type:"GET",
+  //-       url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(feedURL),
+  //-       dataType: 'json',
+  //-       error: function(){
+  //-         dfd.resolve(err);
+  //-       },
+  //-       success: function(xml){
+  //-         dfd.resolve(xml);
+  //-       }
+  //-     });
+  //-     return dfd.promise();
+  //-   };
+
+
+  //-   jQuery.when(fetchFeed()).done(function(xml){
+  //-     if (!xml){
+  //-       string = "No data was found or the feed service is unavailable";
+  //-       return false;
+  //-     }
+  //-     for(var i = 3; i > 0; i--){
+  //-       string += '<div class="ibm-columns"><div class="ibm-col-1-1 ibm-center-block text-center"><h3 class="ibm-h3 ibm-bold ibm-textcolor-blue-50">'+xml.responseData.feed.entries[i].title+'</h3></div></div>';
+  //-     }
+  //-     jQuery('.customclass').append(string);
+  //-   });
+
+
+
+
+
+
+//- block content
+block content
+
+  if content.modules
+    for item in content.modules
+      +#{item.temp}(item)
+  
+
+block page-footer

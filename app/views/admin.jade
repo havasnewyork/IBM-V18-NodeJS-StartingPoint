@@ -1,0 +1,242 @@
+extends layout
+
+block head
+  //- link(href='//1.www.s81c.com/common/v18/css/www.css', rel='stylesheet')
+  script(src='/bower_components/json-editor/dist/jsoneditor.min.js')
+  script(src='/javascripts/theme_v18.js')
+
+block leadspace-head
+  .ibm-columns
+    .ibm-col-6-6
+      h1.ibm-h1.ibm-medium.ibm-bold.ibm-padding-top-30.ibm-padding-bottom-60= title
+      if subtitle
+        h2.ibm-h2.ibm-light= subtitle
+
+
+block content
+
+
+  .ibm-columns
+
+    if nav
+      .ibm-text-tabs
+        ul.ibm-tabs(role='tablist', aria-label="Content Types navigation")
+          each item in nav
+            li(role='presentation', class=(item.schema === schema ? "ibm-active" : ""))
+              a(role='tab', href=item.href, aria-selected=(item.schema === schema ? "true" : ""))= item.label
+
+
+    p.ibm-h2 Listing all content in schema: #{schema}.
+  
+    button.ibm-btn-pri.action-save-content Save Changes
+
+    #editor_holder(data-schema=schema)
+      .ibm-spinner.ibm-h1
+
+    button.ibm-btn-pri.action-save-content Save Changes
+  //- if schemas
+  //-   each schema in schemas
+  //-     li= JSON.stringify(schema, null, 4, 4)
+  
+
+  
+  script.
+    jQuery(function($) {
+      $(window).load(function() {
+
+        //- console.log('hey what up');
+        var editor, element = document.getElementById('editor_holder');
+        var schema = element.getAttribute('data-schema');
+        console.log('loading editor for schema:', schema);
+        editor = new JSONEditor(element, {
+          // Enable fetching schemas via ajax
+          ajax: true,
+          theme: 'ibmv18',
+          disable_edit_json: true,
+          //- disable_collapse: true,
+          disable_properties: true,
+          no_additional_properties: true,
+          required_by_default: true,
+          remove_empty_properties: true,
+          // The schema for the editor
+          schema: {
+            type: "array",
+            title: " ",
+            format: "tabs",
+            options: {
+              disable_collapse: true,
+              disable_array_delete: true,
+              //- disable_array_reorder: true
+            },
+            items: {
+              title: schema,
+              headerTemplate: "{{i}} - {{self.label}}",
+              type: "object",
+              $ref: '/admin/schemas/' + schema
+              
+              // can inject from our schema listings
+              //- oneOf: [
+              //-   {
+              //-     $ref: "admin/schemas/default",
+              //-     title: "Default Content Type"
+              //-   },
+                //- {
+                //-   $ref: "admin/schemas/person.json",
+                //-   title: "Complex Person"
+                //- }
+              //- ]
+            }
+            }
+          });
+          
+          function fetchContent(){
+            console.log('editor ready, getting contents');
+            $('.ibm-spinner').remove();
+            $.get('/admin/contents/' + schema, function(data){
+              console.log('received contents:', data.length);
+              //- var itemEditor;
+              //- console.log(data.length);
+              //- for (var i = 0; i < data.length; i++) {
+              //-   //- itemEditor = editor.getEditor('root.' + i);
+              //-   editor.editors.root.addRow(data[i]);
+              //-   //- itemEditor.setValue(data[i]);
+              //- }
+              editor.setValue(data);
+            });
+          }
+          fetchContent();
+          // hook up events to save 
+          //- post(admin/contents)
+          editor.on('ready', fetchContent)
+          $('.action-save-content').click(function(evt){
+            // editor post to things
+            var data = editor.getValue();
+            // um this gives us an array since we have all the items as an array. 
+            console.log(data);
+            $.post('/admin/contents/' + schema, {save: JSON.stringify(data)}, function(ok){
+              console.log('post success:', ok);
+              fetchContent();
+              // get our schema contents again and set value
+            }).fail(function(err){
+              console.warn('post err:', err);
+            });
+
+          });
+
+          
+      });
+    });
+
+block page-footer
+  //- p Example footer for #{title}
+
+
+
+
+    //-   // This is the starting value for the editor
+    //-   // We will use this to seed the initial editor 
+    //-   // and to provide a "Restore to Default" button.
+    //-   var starting_value = [
+    //-     {
+    //-       name: "John Smith",
+    //-       age: 35,
+    //-       gender: "male",
+    //-       location: {
+    //-         city: "San Francisco",
+    //-         state: "California",
+    //-         citystate: ""
+    //-       },
+    //-       pets: [
+    //-         {
+    //-           name: "Spot",
+    //-           type: "dog",
+    //-           fixed: true
+    //-         },
+    //-         {
+    //-           name: "Whiskers",
+    //-           type: "cat",
+    //-           fixed: false
+    //-         }
+    //-       ]
+    //-     }
+    //-   ];
+      
+    //-   // Initialize the editor
+    //-   var editor = new JSONEditor(document.getElementById('editor_holder'),{
+    //-     // Enable fetching schemas via ajax
+    //-     ajax: true,
+        
+    //-     // The schema for the editor
+    //-     schema: {
+    //-       type: "array",
+    //-       title: "People",
+    //-       format: "tabs",
+    //-       items: {
+    //-         title: "Person",
+    //-         headerTemplate: "{{i}} - {{self.name}}",
+    //-         oneOf: [
+    //-           {
+    //-             $ref: "basic_person.json",
+    //-             title: "Basic Person"
+    //-           },
+    //-           {
+    //-             $ref: "person.json",
+    //-             title: "Complex Person"
+    //-           }
+    //-         ]
+    //-       }
+    //-     },
+        
+    //-     // Seed the form with a starting value
+    //-     startval: starting_value,
+        
+    //-     // Disable additional properties
+    //-     no_additional_properties: true,
+        
+    //-     // Require all properties by default
+    //-     required_by_default: true
+    //-   });
+      
+    //-   // Hook up the submit button to log to the console
+    //-   document.getElementById('submit').addEventListener('click',function() {
+    //-     // Get the value from the editor
+    //-     console.log(editor.getValue());
+    //-   });
+      
+    //-   // Hook up the Restore to Default button
+    //-   document.getElementById('restore').addEventListener('click',function() {
+    //-     editor.setValue(starting_value);
+    //-   });
+      
+    //-   // Hook up the enable/disable button
+    //-   document.getElementById('enable_disable').addEventListener('click',function() {
+    //-     // Enable form
+    //-     if(!editor.isEnabled()) {
+    //-       editor.enable();
+    //-     }
+    //-     // Disable form
+    //-     else {
+    //-       editor.disable();
+    //-     }
+    //-   });
+      
+    //-   // Hook up the validation indicator to update its 
+    //-   // status whenever the editor changes
+    //-   editor.on('change',function() {
+    //-     // Get an array of errors from the validator
+    //-     var errors = editor.validate();
+        
+    //-     var indicator = document.getElementById('valid_indicator');
+        
+    //-     // Not valid
+    //-     if(errors.length) {
+    //-       indicator.style.color = 'red';
+    //-       indicator.textContent = "not valid";
+    //-     }
+    //-     // Valid
+    //-     else {
+    //-       indicator.style.color = 'green';
+    //-       indicator.textContent = "valid";
+    //-     }
+    //-   });
+    //- 

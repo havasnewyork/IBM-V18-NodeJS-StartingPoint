@@ -1,0 +1,634 @@
+mixin worldMap(obj)
+  -var data = obj.content
+  div(class=data.class style=data.background)
+    .ibm-columns(style="position:relative;")
+      .ibm-col-6-4.mapTitlePosition.ibm-block.center.text-center
+        h2.ibm-h2.ibm-bold= obj.content.headline
+        if(data.text)
+          +text(data.text)
+    #ocean-infrastructure-map(style="position: relative;")
+      #map-box
+
+
+
+
+
+
+mixin cards(obj)
+  -var data = obj.content
+
+  div(class=data.class style=data.background)
+    if(data.headline)
+      div(class="ibm-columns ibm-padding-bottom-1")
+        div(class="ibm-col-6-4 ibm-center-block ibm-center")
+          h2.ibm-h2= data.headline
+
+    div(class=data.carouselClass data-widget="carousel" data-dots="#{data.dataDots}" data-arrows="#{data.dataArrows}" data-horizontal="#{data.dataHorizontal}" data-autoplay="#{data.dataAutoplay}")
+      for s in data.slides.slide
+        div(class=data.slides.class)
+          if(s.cards)
+            +card(s.cards)
+
+
+
+
+
+mixin iwmRegistrationForm(obj)
+  -var iwm  = obj.content
+  -var classes = (!iwm.hidden) ? 'ibm-band ui-expand-form show '+iwm.class : 'ibm-band ui-expand-form '+iwm.class
+
+  section(data-cta="#{iwm.dataCta}" style="background-color:#{iwm.background};" class="#{classes}")
+    .ibm-columns
+      .ibm-center-block.ibm-center(class="#{iwm.formClass}")
+        h2.ibm-h2.ibm-light !{iwm.headline)
+        if iwm.text
+        if iwm.subhead
+          h3.ibm-h3 !{iwm.subhead}
+        div(style="margin-top:20px;" id="#{obj.content.options.node}")
+
+        script.
+
+          function mrsCallback(status, status_code, data, e){
+
+            e.showLoadingAnimation(false);
+            if (status == 'SUCCESS') {
+                // e.showMessage(e.defaultOptions.thankYouMessage);
+                var win = window.open("/cloud-computing/bluemix/downloads/IBM_white_paper_Harnessing_APIs_and_platforms.pdf", "_blank");
+                //win.focus();
+            } else {
+                e.showMessage('There was a problem submitting the form');
+            }
+          }
+          var extraFields = !{JSON.stringify(iwm.extraFormFields)};
+
+          if (extraFields.length > 0){
+            var IWM = new iwmRegistrationForm(!{JSON.stringify(iwm.options)}, extraFields);
+          }else{
+            var IWM = new iwmRegistrationForm(!{JSON.stringify(iwm.options)});
+          }
+
+        -// this script manages the anchorTo or expand of the hidden form
+        script(src="/cloud-computing/bluemix/javascripts/www-bluemix.js")
+
+
+
+mixin announcementLeadspace(obj)
+  -var data = obj.content
+  -var textColor = (obj.content.msg.textColor != undefined) ? obj.content.msg.textColor : obj.content.msg.color
+  div(class="wow fadeIn")&attributes( (data.background) ? {'style':data.background} : '', (data.class) ? {'class':data.class} : '')
+    div(class="ibm-columns" )&attributes( (data.columnsClass) ? {'class':data.columnsClass} : '' )
+      .ibm-col-6-4
+        h3.ibm-h3 !{data.msg.subhead}
+        h5.ibm-h5()&attributes( (data.msg.textColor) ? {'style':'color:'+data.msg.textColor} : {'style':'color:#000'} ) !{data.msg.text}
+      if(data.cta)
+        .ibm-col-6-2.ibm-alternate-background
+          if(data.cta)
+            +cta(data.cta)
+
+
+
+
+
+mixin bluemixCloudantFilter(obj)
+  <!--bluemix cloudant feed pulls content from a service -->
+  div(class=" "+obj.content.class style=obj.content.background)
+    div(class="ibm-columns")
+      div(data-widget="dyntabs" role="toolbar" aria-label="Tab Navigation" class="ibm-graphic-tabs ibm-dyntabs")
+        div(class="ibm-tab-section")
+          ul(id=obj.content.options.tabListID role="tablist" class="ibm-tabs")
+  div(style=obj.content.style)
+    div(style="min-height:1000px" id=obj.content.options.masoryContainerID class="ibm-container-body")
+    script.
+      var opts = !{JSON.stringify(obj.content.options)};
+      new bluemixCloudantFilter(opts);
+  <!--END bluemix cloudant feed-->
+
+//filter using isotope
+mixin caseStudy(obj)
+  - var tiles = obj.content.tiles
+  section#filters.filter-nav.companies.ibm-graphic-tabs.ibm-dyntabs
+    div.ibm-columns
+      .ibm-col-6-1.ibm-hidden-medium
+        span.ibm-h4.ibm-textcolor-white-core(style="padding-top:10px") Filter by industry:
+      .ibm-col-6-5
+        ul.ibm-tabs
+          li
+            a.active(href='#', data-filter='.all') All
+          li
+            a(href='#', data-filter='.education') Education
+          li
+            a(href='#', data-filter='.energy') Energy
+          li
+            a(href='#', data-filter='.finance') Finance
+          li
+            a(href='#', data-filter='.healthcare') Healthcare
+          li
+            a(href='#', data-filter='.retail') Retail
+          li
+            a(href='#', data-filter='.technology') Technology
+          li
+            a(href='#', data-filter='.more') More
+        .row.comp-select-m(style="width:100%")
+          .select-label All
+          select(onchange='javascript: void(0);')
+            option(value='.all') All
+            option(value='.education') Education
+            option(value='.energy') Energy
+            option(value='.finance') Finance
+            option(value='.healthcare') Healthcare
+            option(value='.retail') Retail
+            option(value='.technology') Technology
+            option(value='.more') More
+
+  section.filter-content
+    #tile-wrapper.isotope.ibm-columns
+      for tile in tiles
+        - var tileCat = tile.category.toLowerCase()
+        .tile-cnt.all(class=tileCat)
+          span.number=tile.number
+          span.name=tile.name
+          div.ibm-widget-processed
+            if (tile.is_new)
+              img.new-flag(src='/cloud-computing/bluemix/images/new-flag.png')
+            table.tile-logo(class="#{tile.image_class}")
+              tr
+                td(align='center', valign='middle')
+                  img(src="#{tile.image}", alt="#{tile.image_alt}")
+            h3.ibm-h4.ibm-padding-top-1 !{tile.category}
+            h2.ibm-h4.ibm-padding-top-10 !{tile.desc}
+            div.ibm-card__bottom
+              p.ibm-ind-link
+                a.ibm-forward-link(href="#{tile.href}", target='_new')=tile.link
+              ul.social-tools(data-ibm-biz="#{tile.href}")
+                for share in tile.social
+                  li
+                    a(href="#{share.href}", class="#{share.link_class}")
+  script.
+    companyTiles();
+      $(window).load(function(){
+            new socialShare({'node':'tile-wrapper'});
+            })
+
+
+
+
+//- featured tiles
+mixin featuredTiles(obj)
+  if(obj.content.type == "case-study")
+  .ibm-columns.ibm-textcolor-black-core
+    .ibm-col-6-3.ibm-padding-top-1
+      h1.ibm-h1.ibm-light !{obj.header}
+    .ibm-col-6-3
+      if (obj.content.cta)
+        +cta(obj.content.cta)
+  div(class="#{obj.content.classes}" style="overflow:hidden")
+    section.co-wrapper-tile
+      - var bg_l = obj.content.featured.bg ? "background-image:url(" + obj.content.featured.bg + ")" : ""
+      a.co-tile.co-tile-1.bg-image-cover(style=bg_l href="#{obj.content.featured.href}")
+        .co-tile-content
+          //p.ibm-textcolor-white-core.ibm-small.ibm-light=obj.content.featured.category
+          .co-tile-content-bottom.ibm-textcolor-white-core
+            p.ibm-light=obj.content.featured.category
+            h2.ibm-h2=obj.content.featured.title
+              span.ibm-icon-nolink.ibm-forward-link
+            p.ibm-ind-link !{obj.content.featured.copy}
+    section.co-wrapper-tile
+      for tile, i in obj.content.small
+        - var bg_s = tile.bg_sm ? "background-image:url(" + tile.bg_sm + ")" : ""
+        a.co-tile(style=bg_s href="#{tile.href}", class="#{tile.classes}")
+          .co-tile-content
+            //p.ibm-textcolor-white-core.ibm-small.ibm-light
+              //span.ibm-hidden-small=tile.category
+            .co-tile-content-bottom
+              p.ibm-textcolor-white-core.ibm-light
+                span=tile.category
+              h2.ibm-h2.ibm-textcolor-white-core=tile.title
+                span.ibm-icon-nolink.ibm-forward-link
+              p.ibm-textcolor-white-core=tile.copy
+
+
+
+
+
+mixin announcement(obj)
+  .ibm-band.wow.fadeIn(style=obj.content.background)
+    .ibm-columns.ibm-padding-top-1
+      .ibm-col-6-4
+        h3.ibm-h3(style=obj.content.msg.style)=obj.content.msg.text
+        h5.ibm-h5(style=obj.content.msg.style)= obj.content.msg.subText
+      .ibm-col-6-2.ibm-alternate-background
+        p.ibm-btn-link.ibm-padding-top-10
+          a.ibm-btn-sec.ibm-btn-white(href=obj.content.cta.url)= obj.content.cta.text
+
+
+
+
+mixin definitionValueProposition(obj)
+
+  .ibm-band.ibm-padding-top-2.ibm-padding-bottom-2(style=obj.content.background)
+    .ibm-columns
+      if(obj.content.headline)
+        .ibm-col-1-1.ibm-padding-bottom-2
+          +headline(obj.content.headline)
+      for c in obj.content.cards
+        div(class=c.class)
+          if(c.image)
+            .ibm-padding-bottom-1.ibm-center
+              img.ibm-center-block(src=c.image.src width="70%" height="70%")
+          if(c.headline)
+            h3.ibm-h3= c.headline
+
+
+
+mixin list(obj)
+  ul
+    for l in obj
+      if(l.url)
+        li()&attributes( (l.class) ? {'class':l.class} : '')
+          a(href=l.url)&attributes( (l.class) ? {'class':l.class} : '', (l.style) ? {'style':l.style} : '', (l.target) ? {'target':l.target} : '') !{l.text}
+
+      else
+        li()&attributes( (l.class) ? {'class':l.class} : '') !{l.text}
+
+
+mixin cta(obj)
+  //-var style = (obj.style) ? obj.style : ""
+  p(class= (obj.parentClass) ? obj.parentClass : "ibm-btn-link ibm-padding-top-1" (obj.style) ? style=obj.style : "")
+    a(href=obj.url)&attributes( (obj.class) ? {'class':obj.class} : '', (obj.onClick) ? {'onclick':obj.onClick} : '', (obj.target) ? {'target':obj.target} : '') !{obj.text}
+
+
+
+mixin ctagroup(obj)
+  if(obj.type == "inline")
+    p(class=obj.class)
+     for a in obj.cta
+      span
+        a(class=a.class href=a.url target=a.target)= a.text
+  else
+    for a in obj.cta
+     p(class=obj.class)
+       a(class=a.class href=a.url target=a.target)= a.text
+
+
+ mixin eyebrow(obj)
+   if(typeof obj === "object")
+     h4(class=obj.class style=obj.style) !{obj.text}
+   else
+     h4.ibm-h4 !{obj}
+
+ mixin headline(obj)
+   if(typeof obj === "object")
+     h2(class=obj.class style=obj.style) !{obj.text}
+   else
+     h2.ibm-h2 !{obj}
+
+ mixin subhead(obj)
+   if(typeof obj === "object")
+     h3(class=obj.class style=obj.style) !{obj.text}
+   else
+     h3.ibm-h3 !{obj}
+
+ mixin subheadh4(obj)
+   if(typeof obj === "object")
+     h4(class=obj.class style=obj.style) !{obj.text}
+   else
+     h4.ibm-h4 !{obj}
+
+ mixin text(obj)
+   if(typeof obj === "object")
+     p(class=obj.class style=obj.style) !{obj.text}
+   else
+     p !{obj}
+
+
+mixin image(obj)
+ if(obj.url && obj.url != "")
+   a(href=obj.url)&attributes( (obj.target) ? {'target':obj.target} : '' )
+     img(src=obj.src class="ibm-resize")&attributes( (obj.class) ? {'class':obj.class} : '', (obj.style) ? {'style':obj.style} : '', (obj.alt ) ? {'alt':obj.alt} : '' )
+ else
+   img(src=obj.src class="ibm-resize")&attributes( (obj.class) ? {'class':obj.class} : '', (obj.style) ? {'style': obj.style} : '', (obj.alt ) ? {'alt':obj.alt} : '')
+
+
+mixin icon(obj)
+ if(obj.url && obj.url != "")
+   div()&attributes( (obj.class) ? {'class':obj.class} : '' )
+     a(href=obj.url)&attributes( (obj.target) ? {'target':obj.target} : '' )
+       img(src=obj.src style="width:70px;")&attributes( (obj.class) ? {'class':obj.class} : '', (obj.style) ? {'style':obj.style} : '', (obj.alt ) ? {'alt':obj.alt} : '')
+ else
+   div()&attributes( (obj.class) ? {'class':obj.class} : '' )
+     img(src=obj.src style="width:70px;")&attributes( (obj.class) ? {'class':obj.class} : '', (obj.style) ? {'style': obj.style} : '', (obj.alt ) ? {'alt':obj.alt} : '')
+
+
+
+mixin tabs(obj)
+  ul(class="ibm-tabs" role="tablist")
+    each t, index in obj
+      li(class=( index==0 ) ? "ibm-first-tab "+t.class : t.class)
+        a(aria-selected=( index==0 ) ? "true" : "false" href="#"+t.prefix+index)= t.label
+  div(class="ibm-container-body ibm-padding-top-1 "   style="overflow-x:scroll;background-color:#1d3649;")
+    each t, index in obj
+      div(class="ibm-tabs-content" id=t.prefix+index)
+
+        if(t.content.text)
+          +text(t.content.text)
+        if(t.content.ctagroup)
+          +ctagroup(t.content.ctagroup)
+        if(t.content.list)
+          +list(t.content.list)
+        if(t.content.cards)
+          +card(t.content.cards)
+
+
+
+mixin tabgroup(obj)
+  div(class=obj.content.class style=obj.content.background)
+    if(obj.content.headline)
+      +headline(obj.content.headline)
+    if(obj.content.subhead)
+      +subhead(obj.content.subhead)
+    if(obj.content.text)
+      +text(obj.content.text)
+    if(obj.content.tabs)
+      div(data-widget="dyntabs" class="ibm-dyntabs"  style="overflow-x:hidden;")
+        div(class=obj.content.tabClass)
+          ul(class=obj.content.ulClass role="tablist")
+            each t, index in obj.content.tabs
+              li( role="presentation" class=( index==0 ) ? "ibm-first-tab "+t.class : t.class)
+                a( role="tab" aria-selected=( index==0 ) ? "true" : "false" href="#"+t.prefix+index)= t.label
+          div(class=obj.content.contentClass   style=obj.content.contentStyle)
+            each t, index in obj.content.tabs
+              div(class="ibm-tabs-content" id=t.prefix+index)
+
+                if(t.content.text)
+                  +text(t.content.text)
+                if(t.content.ctagroup)
+                  +ctagroup(t.content.ctagroup)
+                if(t.content.list)
+                  +list(t.content.list)
+                if(t.content.cards)
+                  +card(t.content.cards)
+
+
+
+
+
+
+mixin featuredServices(obj)
+  div(class="#{obj.content.class}" style="#{obj.content.background}" data-widget="setsameheight" data-items=".ibm-card" data-always="true")
+    .ibm-columns
+      .ibm-col-1-1.ibm-alternate-background
+        h3.ibm-h3.ibm-light.ibm-mobile-small.ibm-padding-bottom-1=obj.content.headline
+    .ibm-columns
+      .ibm-col-1-1
+        .ibm-columns
+          for c in obj.content.cards
+            div(class=c.class)
+              div(class="ibm-card")
+                div(class="ibm-mo ibm-mo--top")
+                  div(class="ibm-mo__image")
+                    div(class="icon-container")
+                      img(src=c.img)
+                  div(class="ibm-mo__body")
+                    h5.ibm-h5.ibm-bold(style="color:#fff;")= c.headline
+                    if(c.tags)
+                      div( class="bluemix-catalog-details" )
+                        for tag in c.tags
+                          h5.ibm-tag= tag
+                    p(style="color:#fff;")=c.text
+                    if(c.cta)
+                      +cta(c.cta)
+      div(class="ibm-col-1-1 ibm-center ibm-padding-top-30")
+        if(obj.content.cta)
+          +cta(obj.content.cta)
+
+
+
+
+
+
+mixin related(obj)
+  div(class="#{obj.content.class}" style="#{obj.content.background}")
+    div(data-widget="setsameheight" data-items="> div > div" class="ibm-columns ibm-widget-processed")
+      for c in obj.content.cards
+        div( class="ibm-col-6-2 ibm-col-medium-1-1" )
+          div( class="ibm-card" style=c.style)
+            div( class="ibm-card__content" )
+              h3(class="ibm-h3 ibm-textcolor-gray-80 ibm-regular ibm-padding-bottom-r1")= c.headline
+              if(c.list)
+                ul
+                  for l in c.list
+                    li
+                      a(class=l.class href=l.url target=l.target)= l.text
+              if(c.video)
+                +video(c.video)
+                p(class="ibm-bold ibm-textcolor-blue-30")= c.video.text
+              if(c.image)
+                +image(c.image)
+                p(class="ibm-bold ibm-textcolor-blue-30") !{c.image.text}
+
+
+mixin introduction(obj)
+ div(class=obj.content.class style="#{obj.content.background} "+obj.content.style)
+   .ibm-columns
+     .ibm-col-6-4.wow.fadeIn
+       if (obj.content.headline)
+         h2.ibm-h2.ibm-light= obj.content.headline
+       if (obj.content.subhead)
+         +subhead(obj.content.subhead)
+       if (obj.content.text)
+         p.ibm-light !{obj.content.text}
+       if(obj.content.list)
+         +list(obj.content.list)
+       if(obj.content.cta)
+         +cta(obj.content.cta)
+       if(obj.content.ctagroup)
+         +ctagroup(obj.content.ctagroup)
+
+
+
+mixin introductionCenter(obj)
+  div(class="ibm-center "+obj.content.class style="#{obj.content.background} "+obj.content.style)
+    .ibm-columns
+      .ibm-col-6-4.ibm-center-block.wow.fadeIn
+        if (obj.content.headline)
+          h2.ibm-h2.ibm-light= obj.content.headline
+        if (obj.content.subhead)
+          +subhead(obj.content.subhead)
+        if (obj.content.text)
+          p.ibm-light !{obj.content.text}
+        if(obj.content.list)
+          +list(obj.content.list)
+        if (obj.content.cta)
+          +cta(obj.content.cta)
+        if(obj.content.ctagroup)
+          +ctagroup(obj.content.ctagroup)
+
+
+
+
+mixin video(obj)
+  if(obj.display == "inline")
+    div(data-videodisplay=obj.display  data-videoid=obj.id data-videotype=obj.type href=obj.url data-widget="videoplayer" data-customplaceholder="true" data-showvideoduration="false" data-showvideotitle="false" class="ibm-video-player-con" )
+      div
+        a(href=obj.url class="ibm-video-placeholder")
+          img(alt=obj.title src=obj.img class="ibm-resize")
+          if(obj.timeStamp)
+            .ibm-video-timestamp !{obj.timeStamp}
+  else
+    div(data-videodisplay=obj.display  data-videoid=obj.id data-videotype=obj.type href=obj.url data-widget="videoplayer" data-overlayplayersize="large" data-showimageplaybutton="true" data-customplaceholder="true" data-showvideoduration="false" data-showvideotitle="false" class="ibm-video-player-con" )
+      div
+        a(href=obj.url class="ibm-video-placeholder")
+          img(alt=obj.title src=obj.img class="ibm-resize")
+          if(obj.timeStamp)
+            .ibm-video-timestamp !{obj.timeStamp}
+
+
+
+
+mixin videoBand(obj)
+  div(style="#{obj.content.background}; background-size:cover;position:relative;" class=(obj.content.class) ? obj.content.class : "")
+    if(obj.content.timeStamp)
+      .ibm-video-timestamp !{obj.content.timeStamp}
+    p
+      a(data-widget="videoplayer" data-videotitleoverridde=obj.content.headline data-videodisplay="overlay" data-videoid=obj.content.id data-overlayplayersize="large" data-showvideoduration="false" data-showimageplaybutton="true" data-videotype=obj.content.type href=obj.content.url)
+        img(src=obj.content.img_transprarent alt=obj.content.headline)
+    if (obj.content.headline)
+      .ibm-col-6-4.ibm-center-block.text-center.ibm-padding-top-r1
+        h2.ibm-h2.ibm-light= obj.content.headline
+        if (obj.content.subhead)
+          p.ibm-light= obj.content.subhead
+  if(obj.content.ctagroup)
+    div(class="ibm-col-6-4 ibm-center-block")
+      +ctagroup(obj.content.ctagroup)
+
+
+
+
+
+
+
+
+mixin cardContent(c)
+  if(c.eyebrow)
+    +eyebrow(c.eyebrow)
+  if(c.icon)
+    +icon(c.icon)
+  if(c.image)
+    +image(c.image)
+  if(c.video)
+    +video(c.video)
+  if(c.headline || c.subhead || c.subheadh4 || c.text)
+    div(class="ibm-card__content ibm-padding-bottom-1")
+      if(c.headline)
+        +headline(c.headline)
+      if(c.subhead)
+        +subhead(c.subhead)
+      if(c.subheadh4)
+        +subheadh4(c.subheadh4)
+      if(c.text)
+        +text(c.text)
+    if(c.cta)
+      div(class="ibm-card__bottom")
+        +cta(c.cta)
+
+
+mixin card(obj)
+
+  if(obj instanceof Array)
+    div(data-widget="setsameheight" data-items=".ibm-card" class="ibm-columns ibm-cards ibm-textcolor-black-core")
+      for c in obj
+        .wow.fadeIn(class=c.class)
+          div(class="ibm-card ibm-center #{c.borderColor}" style=c.style)
+            +cardContent(c)
+
+  else
+    div(data-widget="setsameheight" data-items="> div > div" class="ibm-columns ibm-cards ibm-textcolor-black-core")
+      for c in obj.card
+        .wow.fadeIn(class=obj.class)
+          div(class=(c.class!=undefined)?"ibm-card ibm-center #{c.class}":"ibm-card ibm-center" style="#{obj.style} "+c.style)
+            +cardContent(c)
+
+
+
+
+
+mixin products(obj)
+  div(style=obj.content.background class=obj.content.class)
+    if(obj.content.headline)
+      div(class="ibm-columns ibm-padding-bottom-1")
+        div(class="ibm-col-6-4 ibm-center-block ibm-center")
+          if(obj.content.headline)
+            +headline(obj.content.headline)
+          if(obj.content.subhead)
+            +subhead(obj.content.subhead)
+          if(obj.content.text)
+            +text(obj.content.text)
+    if(obj.content.cards)
+      +card(obj.content.cards)
+    if(obj.content.cta)
+      div(class="ibm-columns ibm-center")
+        +cta(obj.content.cta)
+
+
+
+mixin feature2col(obj)
+  -var style = (obj.content.style != undefined) ? obj.content.style : ""
+  div(style="#{obj.content.background}"+style class=obj.content.class)
+    if(obj.content.headline)
+      div(class="ibm-columns ibm-padding-bottom-1")
+        div(class="ibm-col-6-4 ibm-center-block ibm-center")
+          if(obj.content.headline)
+            +headline(obj.content.headline)
+          if(obj.content.subhead)
+            +subhead(obj.content.subhead)
+          if(obj.content.text)
+            +text(obj.content.text)
+
+    div(class="ibm-columns")
+      for c in obj.content.cards
+        div(class=c.class)
+          if(c.eyebrow)
+            +eyebrow(c.eyebrow)
+          if(c.headline)
+            +headline(c.headline)
+          if(c.subhead)
+            +subhead(c.subhead)
+          if(c.text)
+            +text(c.text)
+          if(c.video)
+            +video(c.video)
+          if(c.image)
+            +image(c.image)
+          if(c.list)
+            +list(c.list)
+          if(c.ctagroup)
+            +ctagroup(c.ctagroup)
+          if(c.cta)
+            +cta(c.cta)
+          if(c.tabgroup)
+            +tabgroup(c.tabgroup)
+
+mixin tabV18(data, active)
+     if(data.secondary_tabs)
+       li(role="presentation" class="ibm-haschildlist ibm-highlight")
+         span(role="menuitem")=data.label
+         ul(role="menu")
+           for sub in data.secondary_tabs
+             //
+               if(sub.tabs)
+                 li(role="presentation" class="ibm-haschildlist ibm-highlight")
+                   span(role="menuitem")=sub.label
+                   ul(role="menu")
+                     for subsub in sub.tabs
+                       li(role="presentation")
+                         a(role="menuitem" href=subsub.href aria-label=subsub.label)=subsub.label
+               else
+                 li(role="presentation")
+                   a(role="menuitem" href=sub.href aria-label=sub.label)=sub.label
+                   
+             li(role="presentation")
+               a(role="menuitem" href=sub.href aria-label=sub.label)=sub.label
+
+     else
+       li(role="presentation")
+         a(role="menuitem" href=data.href aria-label=data.label onclick="#{data.onClick}")=data.label

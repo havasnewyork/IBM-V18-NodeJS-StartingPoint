@@ -1,0 +1,88 @@
+
+- var features_enabled = (content.leadspace.features.enabled) ? true : false
+- var video_enabled = (content.leadspace.leadspace_video.enabled) ? true : false
+
+#ibm-leadspace-body.ibm-padding-top-1.ibm-padding-bottom-r1
+  if !content.is_index
+    //- Tier 3 features list view
+    if features_enabled
+      .ibm-columns.ibm-alternate-background.ibm-padding-top-2.ibm-padding-bottom-1(style="postition:relative" data-widget="parallax")
+        .ibm-col-6-3.ibm-col-medium-4-2.wow.fadeIn
+          h1#ibm-pagetitle-h1.ibm-h1.ibm-light= content.leadspace.header
+          h5.ibm-h5= content.leadspace.subhead
+          p.ibm-button-link.ibm-btn-row
+            if (content.leadspace.primary_cta.cta.onClick)
+              a.ibm-btn-pri.ibm-btn-blue-30(class=(content.leadspace.primary_cta.cta._class) ? "#{content.leadspace.primary_cta.cta._class}" : "" href="#{content.leadspace.primary_cta.cta.href}" onclick="#{content.leadspace.primary_cta.cta.onClick}" )= content.leadspace.primary_cta.cta.text
+            else
+              a.ibm-btn-pri.ibm-btn-blue-30(class=(content.leadspace.primary_cta.cta._class) ? "#{content.leadspace.primary_cta.cta._class}" : "" href="#{content.leadspace.primary_cta.cta.href}" )= content.leadspace.primary_cta.cta.text
+
+        .ibm-col-6-3.ibm-col-medium-4-2.wow.fadeIn
+          ul.bluemix-features-list
+            each item in content.leadspace.features.list
+              li= item
+
+    if !features_enabled && !video_enabled
+      //- Tier 2 centered view
+      .ibm-columns.ibm-alternate-background.ibm-padding-top-2.ibm-padding-bottom-0(style="postition:relative" data-widget="parallax")
+        //- .ibm-col-6-4.ibm-center-block.ibm-center.wow.fadeIn
+        .ibm-col-6-4.ibm-center-block.ibm-center.wow.fadeIn
+          h1.ibm-h1.ibm-light= content.leadspace.header
+            if content.is_index
+              h2.ibm-h2= content.leadspace.subhead
+            else
+              h5.ibm-h5= content.leadspace.subhead
+          if (content.leadspace.primary_cta.enabled)
+            p.ibm-button-link.ibm-btn-row
+              if (content.leadspace.primary_cta.cta.onClick)
+                a.ibm-btn-pri.ibm-btn-blue-30(class=(content.leadspace.primary_cta.cta._class) ? "#{content.leadspace.primary_cta.cta._class}" : "" href="#{content.leadspace.primary_cta.cta.href}" onclick="#{content.leadspace.primary_cta.cta.onClick}" )= content.leadspace.primary_cta.cta.text
+                if (content.leadspace.secondary_cta.enabled)
+                  for cta in content.leadspace.secondary_cta.cta
+                      a.ibm-btn-pri.ibm-btn-blue-30(href="#{cta.href}", onclick="#{content.leadspace.secondary_cta.cta.onClick}")= cta.text
+              else
+                a.ibm-btn-pri.ibm-btn-blue-30(class=(content.leadspace.primary_cta.cta._class) ? "#{content.leadspace.primary_cta.cta._class}" : "" href="#{content.leadspace.primary_cta.cta.href}" )= content.leadspace.primary_cta.cta.text
+                if (content.leadspace.secondary_cta.enabled)
+                  for cta in content.leadspace.secondary_cta.cta
+                      a.ibm-btn-pri.ibm-btn-blue-30(href="#{cta.href}")= cta.text
+          //- .ibm-columns
+            .ibm-col-1-1.ibm-center
+                p.ibm-ind-link
+                  if (content.leadspace.secondary_cta.enabled)
+                    for cta in content.leadspace.secondary_cta.cta
+                        a.ibm-forward-link(href="#{cta.href}", style="margin:0 15px 0 5px")= cta.text
+
+    if video_enabled && !features_enabled
+      //- Tier 2 video view
+      - var videoId = content.leadspace.leadspace_video.video.id
+      - var videoType = content.leadspace.leadspace_video.video.type
+      - var videoUrl = content.leadspace.leadspace_video.video.url
+      - var videoImg = content.leadspace.leadspace_video.video.img
+        .ibm-columns.ibm-alternate-background.ibm-padding-top-2(style="postition:relative" data-widget="parallax")
+          .ibm-col-6-4.ibm-col-medium-4-2.wow.fadeIn
+            h1#ibm-pagetitle-h1.ibm-h1.ibm-light= content.leadspace.header
+            h5.ibm-h5= content.leadspace.subhead
+            p.ibm-button-link.ibm-btn-row
+              if (content.leadspace.primary_cta.cta.onClick)
+                a.ibm-btn-pri.ibm-btn-blue-30(class=(content.leadspace.primary_cta.cta._class) ? "#{content.leadspace.primary_cta.cta._class}" : "" href="#{content.leadspace.primary_cta.cta.href}" onclick="#{content.leadspace.primary_cta.cta.onClick}"  )= content.leadspace.primary_cta.cta.text
+              else
+                a.ibm-btn-pri.ibm-btn-blue-30(class=(content.leadspace.primary_cta.cta._class) ? "#{content.leadspace.primary_cta.cta._class}" : "" href="#{content.leadspace.primary_cta.cta.href}" )= content.leadspace.primary_cta.cta.text
+          .ibm-col-6-2.ibm-col-medium-4-2
+            div.ibm-video-player-con(data-videodisplay="inline", data-widget="videoplayer", data-customplaceholder="true", data-showvideoduration="false",data-showvideotitle="false")&attributes({"data-videoid":videoId, "data-videotype":videoType, "href":videoUrl})
+              div
+                a.ibm-video-placeholder(href="#{videoUrl}")
+                  span.ibm-play-link
+                  img.ibm-resize(alt="", src=videoImg, target="_blank")
+  else
+    //- Tier 1 homepage view
+    .ibm-columns.ibm-padding-top-2.ibm-padding-bottom-1(style="postition:relative" data-widget="parallax")
+      .ibm-col-5-2.ibm-col-large-6-3.ibm-col-medium-6-4.wow.fadeIn
+          h1#ibm-pagetitle-h1.ibm-h1.ibm-light.ibm-medium= content.leadspace.header
+            if content.is_index
+              h3.ibm-h3.ibm-light= content.leadspace.subhead
+            else
+              p= content.leadspace.subhead
+          p.ibm-button-link.ibm-padding-top-1.ibm-btn-row
+            if (content.leadspace.primary_cta.cta.onClick)
+              a.ibm-btn-pri.ibm-btn-blue-30(class=(content.leadspace.primary_cta.cta._class) ? "#{content.leadspace.primary_cta.cta._class}" : "" href="#{content.leadspace.primary_cta.cta.href}" onclick="#{content.leadspace.primary_cta.cta.onClick}" )= content.leadspace.primary_cta.cta.text
+            else
+              a.ibm-btn-pri.ibm-btn-blue-30(class=(content.leadspace.primary_cta.cta._class) ? "#{content.leadspace.primary_cta.cta._class}" : "" href="#{content.leadspace.primary_cta.cta.href}" )= content.leadspace.primary_cta.cta.text
+      .ibm-col-5-3.ibm-col-medium-6-2

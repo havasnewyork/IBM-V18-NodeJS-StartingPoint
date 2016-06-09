@@ -1,0 +1,30 @@
+{
+   "couchdb-local": [
+      {
+         "name": "couchdb",
+         "label": "couchdb local",
+         "plan": "Local",
+         "credentials": {
+            "username": "admin",
+            "password": "localpassword",
+            "host": "127.0.0.1",
+            "port": 5984,
+            "url": "http://127.0.0.1:5984/"
+         }
+      }
+   ],
+   "cloudantNoSQLDB": [
+      {
+         "name": "CloudantOceanDev",
+         "label": "cloudantNoSQLDB",
+         "plan": "Shared",
+         "credentials": {
+            "username": "28af2ffa-a2d6-467a-bbe6-d25af94aa29e-bluemix",
+            "password": "5de5edcbc6d9554ee07b6d4d885a63387a9308b508be24cee452aec9b77ee46e",
+            "host": "28af2ffa-a2d6-467a-bbe6-d25af94aa29e-bluemix.cloudant.com",
+            "port": 443,
+            "url": "https://28af2ffa-a2d6-467a-bbe6-d25af94aa29e-bluemix:5de5edcbc6d9554ee07b6d4d885a63387a9308b508be24cee452aec9b77ee46e@28af2ffa-a2d6-467a-bbe6-d25af94aa29e-bluemix.cloudant.com"
+         }
+      }
+    ]
+}

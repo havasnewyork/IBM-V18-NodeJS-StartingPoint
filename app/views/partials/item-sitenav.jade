@@ -1,0 +1,13 @@
+// partials/item-sitenav.jade
+if content
+  .ocean-item-sitenav-container
+    ul.ibm-plain-list(role='menubar')
+      //li(role='presentation', class='sitenav-blue').ocean-cloud-highlight
+      //  a(href='#', role='menuitem') IBM Cloud
+      each i in content
+        - var className = 'sitenav-' + i.href
+        - var label = i.label;
+        - if (i.href === item.href) className += ' ocean-selected'
+        - if (i.href === item.href) label += '_'
+        li(role='presentation', class=className)
+          a(href="##{i.href}", role='menuitem')= label

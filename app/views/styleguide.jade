@@ -1,0 +1,268 @@
+extends layout
+
+block sitenav
+  include ./partials/sitenav.jade
+
+block leadspace-head
+  //- .ibm-band(style="background: #fff url('/images/hero1-crop.jpg') no-repeat 0 0 / cover;")
+  .ibm-band
+    .ibm-columns.ocean-header
+      .ibm-col-6-2
+      .ibm-col-6-4
+        .ibm-h1 Ocean Style Guide
+
+block content-nav
+  //- p content navigation tabs TBD
+
+block content
+  
+  .ibm-band
+    .ibm-columns
+      .ibm-col-6-2
+      .ibm-col-6-4
+        .ibm-h1 Typography
+    .ibm-columns
+      .ibm-col-6-1
+      .ibm-col-6-5
+        h1.ibm-h1 Heading 1
+        h2.ibm-h2 Heading 2
+        h3.ibm-h3 Heading 3
+        h4.ibm-h4 Heading 4
+        h5.ibm-h5 Heading 5
+        h6.ibm-h6 Heading 6
+        p.ocean Paragraph
+        
+
+  .ibm-band
+    .ibm-columns
+      .ibm-col-6-2
+      .ibm-col-6-4
+        .ibm-h1 Colors
+    .ibm-columns
+      .ibm-col-6-1
+      .ibm-col-6-5
+        .ocean-color-chip.ocean-color-blue_10 blue_10
+        .ocean-color-chip.ocean-color-blue_20 blue_20
+        .ocean-color-chip.ocean-color-blue_30 blue_30
+        .ocean-color-chip.ocean-color-blue_40 blue_40
+        .ocean-color-chip.ocean-color-blue_50 blue_50
+        .ocean-color-chip.ocean-color-blue_60 blue_60
+        .ocean-color-chip.ocean-color-blue_70 blue_70
+        .ocean-color-chip.ocean-color-blue_80 blue_80
+        .ocean-color-chip.ocean-color-blue_90 blue_90
+        .ocean-color-chip.ocean-color-blue_100 blue_100
+        br
+        .ocean-color-chip.ocean-color-green_10 green_10
+        .ocean-color-chip.ocean-color-green_20 green_20
+        .ocean-color-chip.ocean-color-green_30 green_30
+        .ocean-color-chip.ocean-color-green_40 green_40
+        .ocean-color-chip.ocean-color-green_50 green_50
+        .ocean-color-chip.ocean-color-green_60 green_60
+        .ocean-color-chip.ocean-color-green_70 green_70
+        .ocean-color-chip.ocean-color-green_80 green_80
+        .ocean-color-chip.ocean-color-green_90 green_90
+        .ocean-color-chip.ocean-color-green_100 green_100
+        br
+        .ocean-color-chip.ocean-color-teal_10 teal_10
+        .ocean-color-chip.ocean-color-teal_20 teal_20
+        .ocean-color-chip.ocean-color-teal_30 teal_30
+        .ocean-color-chip.ocean-color-teal_40 teal_40
+        .ocean-color-chip.ocean-color-teal_50 teal_50
+        .ocean-color-chip.ocean-color-teal_60 teal_60
+        .ocean-color-chip.ocean-color-teal_70 teal_70
+        .ocean-color-chip.ocean-color-teal_80 teal_80
+        .ocean-color-chip.ocean-color-teal_90 teal_90
+        .ocean-color-chip.ocean-color-teal_100 teal_100
+        br
+        .ocean-color-chip.ocean-color-purple_10 purple_10
+        .ocean-color-chip.ocean-color-purple_20 purple_20
+        .ocean-color-chip.ocean-color-purple_30 purple_30
+        .ocean-color-chip.ocean-color-purple_40 purple_40
+        .ocean-color-chip.ocean-color-purple_50 purple_50
+        .ocean-color-chip.ocean-color-purple_60 purple_60
+        .ocean-color-chip.ocean-color-purple_70 purple_70
+        .ocean-color-chip.ocean-color-purple_80 purple_80
+        .ocean-color-chip.ocean-color-purple_90 purple_90
+        .ocean-color-chip.ocean-color-purple_100 purple_100
+        br
+        .ocean-color-chip.ocean-color-magenta_10 magenta_10
+        .ocean-color-chip.ocean-color-magenta_20 magenta_20
+        .ocean-color-chip.ocean-color-magenta_30 magenta_30
+        .ocean-color-chip.ocean-color-magenta_40 magenta_40
+        .ocean-color-chip.ocean-color-magenta_50 magenta_50
+        .ocean-color-chip.ocean-color-magenta_60 magenta_60
+        .ocean-color-chip.ocean-color-magenta_70 magenta_70
+        .ocean-color-chip.ocean-color-magenta_80 magenta_80
+        .ocean-color-chip.ocean-color-magenta_90 magenta_90
+        .ocean-color-chip.ocean-color-magenta_100 magenta_100
+        br
+        .ocean-color-chip.ocean-color-red_10 red_10
+        .ocean-color-chip.ocean-color-red_20 red_20
+        .ocean-color-chip.ocean-color-red_30 red_30
+        .ocean-color-chip.ocean-color-red_40 red_40
+        .ocean-color-chip.ocean-color-red_50 red_50
+        .ocean-color-chip.ocean-color-red_60 red_60
+        .ocean-color-chip.ocean-color-red_70 red_70
+        .ocean-color-chip.ocean-color-red_80 red_80
+        .ocean-color-chip.ocean-color-red_90 red_90
+        .ocean-color-chip.ocean-color-red_100 red_100
+        br
+        .ocean-color-chip.ocean-color-grey_10 grey_10
+        .ocean-color-chip.ocean-color-grey_20 grey_20
+        .ocean-color-chip.ocean-color-grey_30 grey_30
+        .ocean-color-chip.ocean-color-grey_40 grey_40
+        .ocean-color-chip.ocean-color-grey_50 grey_50
+        .ocean-color-chip.ocean-color-grey_60 grey_60
+        .ocean-color-chip.ocean-color-grey_70 grey_70
+        .ocean-color-chip.ocean-color-grey_80 grey_80
+        .ocean-color-chip.ocean-color-grey_90 grey_90
+        .ocean-color-chip.ocean-color-grey_100 grey_100
+        br
+        .ocean-color-chip.ocean-color-cool_grey_10 cool_grey_10
+        .ocean-color-chip.ocean-color-cool_grey_20 cool_grey_20
+        .ocean-color-chip.ocean-color-cool_grey_30 cool_grey_30
+        .ocean-color-chip.ocean-color-cool_grey_40 cool_grey_40
+        .ocean-color-chip.ocean-color-cool_grey_50 cool_grey_50
+        .ocean-color-chip.ocean-color-cool_grey_60 cool_grey_60
+        .ocean-color-chip.ocean-color-cool_grey_70 cool_grey_70
+        .ocean-color-chip.ocean-color-cool_grey_80 cool_grey_80
+        .ocean-color-chip.ocean-color-cool_grey_90 cool_grey_90
+        .ocean-color-chip.ocean-color-cool_grey_100 cool_grey_100
+        br
+        .ocean-color-chip.ocean-color-warm_grey_10 warm_grey_10
+        .ocean-color-chip.ocean-color-warm_grey_20 warm_grey_20
+        .ocean-color-chip.ocean-color-warm_grey_30 warm_grey_30
+        .ocean-color-chip.ocean-color-warm_grey_40 warm_grey_40
+        .ocean-color-chip.ocean-color-warm_grey_50 warm_grey_50
+        .ocean-color-chip.ocean-color-warm_grey_60 warm_grey_60
+        .ocean-color-chip.ocean-color-warm_grey_70 warm_grey_70
+        .ocean-color-chip.ocean-color-warm_grey_80 warm_grey_80
+        .ocean-color-chip.ocean-color-warm_grey_90 warm_grey_90
+        .ocean-color-chip.ocean-color-warm_grey_100 warm_grey_100
+        br
+        .ocean-color-chip.ocean-color-white_1 white_1
+        .ocean-color-chip.ocean-color-white_2 white_2
+        .ocean-color-chip.ocean-color-white_3 white_3
+        .ocean-color-chip.ocean-color-white_4 white_4
+        .ocean-color-chip.ocean-color-cool_white_1 cool_white_1
+        .ocean-color-chip.ocean-color-cool_white_2 cool_white_2
+        .ocean-color-chip.ocean-color-cool_white_3 cool_white_3
+        .ocean-color-chip.ocean-color-cool_white_4 cool_white_4
+        .ocean-color-chip.ocean-color-warm_white_1 warm_white_1
+        .ocean-color-chip.ocean-color-warm_white_2 warm_white_2
+        .ocean-color-chip.ocean-color-warm_white_3 warm_white_3
+        .ocean-color-chip.ocean-color-warm_white_4 warm_white_4
+
+  //- .ibm-band.ibm-ocean
+    .ibm-columns
+      .ibm-col-6-2
+      .ibm-col-6-4
+        .ibm-h1 SVG Shape Tests
+    .ibm-columns
+      .ibm-col-6-1
+      .ibm-col-6-5
+        .ocean-shape-hero.smallest.fill-one.ocean-shape.ocean-shape-fill
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeA"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape A
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeB"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape B
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeC"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape C
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeD"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape D
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeE"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape E
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeF"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape F
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeG"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape G
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeH"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape H
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeI"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape I
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeJ"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape J
+
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapeHex"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape Hex
+
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapehpBlue"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape HP Blue
+
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapehpInfrastructure"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape HP Infrastructure
+
+        .ocean-shape-hero.smallest.fill-one.ocean-bg-teal_50
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapehpInfrastructureAlt"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape HP Infrastructure Alt
+
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapehpPlatform"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape HP Platform
+
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapehpServices"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape HP Services
+
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapehpShop"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape HP Shop 
+
+        .ocean-shape-hero.smallest.fill-one
+          svg(preserveAspectRatio="xMidYMid meet",  viewBox="0 0 960 960")
+            - var shape = "shapehpSolutions"
+            include ./partials/shapes/include
+        p.ibm-h2.ibm-padding-top-60 Shape HP Solutions
+      
+    
+      
+    
+
+block page-footer
+  //- p Example footer for #{title}

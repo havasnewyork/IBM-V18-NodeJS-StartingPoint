@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,uDAAoC,CAClC,WAAW,CAAE,GAAG,CAElB,qCAAkB,CACd,WAAW,CAAE,GAAG",
+"sources": ["../scss/views/_global.scss"],
+"names": [],
+"file": "style.css"
+}
