@@ -632,3 +632,8 @@ mixin tabV18(data, active)
      else
        li(role="presentation")
          a(role="menuitem" href=data.href aria-label=data.label onclick="#{data.onClick}")=data.label
+
+
+mixin tempList(obj)
+  for item in obj
+    +#{item.temp}(item)
